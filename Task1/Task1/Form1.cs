@@ -1,6 +1,3 @@
-using System.Drawing;
-using System.Windows.Forms;
-using static Task1.Form1;
 using Timer = System.Threading.Timer;
 
 namespace Task1
@@ -49,7 +46,7 @@ namespace Task1
         {
             List<Circle> circlesDelete = new List<Circle>();
             Graphics g = Panel.CreateGraphics();
-            for (int k=0; k<_circles.Count; k++)
+            for (int k = 0; k < _circles.Count; k++)
             {
                 _circles[k].Radius++;
             }
@@ -59,7 +56,10 @@ namespace Task1
                 {
                     for (int n = 1; n < _circles.Count; n++)
                     {
-                        if (Math.Sqrt(Math.Pow(Math.Abs(_circles[n].Center.X - _circles[i].Center.X), 2) + Math.Pow(Math.Abs(_circles[n].Center.Y - _circles[i].Center.Y), 2)) <= _circles[n].Radius + _circles[i].Radius)
+                        var dx = _circles[n].Center.X - _circles[i].Center.X;
+                        var dy = _circles[n].Center.Y - _circles[i].Center.Y;
+                        var dRadius = _circles[n].Radius + _circles[i].Radius;
+                        if (dx * dx + dy * dy <= dRadius * dRadius)
                         {
                             circlesDelete.Add(_circles[i]);
                             circlesDelete.Add(_circles[n]);
@@ -68,7 +68,7 @@ namespace Task1
                 }
                 for (int x = 0; x < circlesDelete.Count; x++)
                 {
-                    circlesDelete.RemoveAt(x);
+                  
                     g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
@@ -78,34 +78,10 @@ namespace Task1
             }
             for (int a = 0; a < _circles.Count; a++)
             {
-                if (Math.Abs(_circles[a].Center.Y - 0) <= _circles[a].Radius)
-                {
-                    _circles.RemoveAt(a);
-                    g.Clear(Color.White);
-                    if (_circles.Count == 0)
-                    {
-                        _timer.Dispose();
-                    }
-                }
-                if (Math.Abs(_circles[a].Center.Y - Panel.ClientSize.Height) <= _circles[a].Radius)
-                {
-                    _circles.RemoveAt(a);
-                    g.Clear(Color.White);
-                    if (_circles.Count == 0)
-                    {
-                        _timer.Dispose();
-                    }
-                }
-                if (Math.Abs(_circles[a].Center.X - 0) <= _circles[a].Radius)
-                {
-                    _circles.RemoveAt(a);
-                    g.Clear(Color.White);
-                    if (_circles.Count == 0)
-                    {
-                        _timer.Dispose();
-                    }
-                }
-                if (Math.Abs(_circles[a].Center.X - Panel.ClientSize.Width) <= _circles[a].Radius)
+                var dx = _circles[a].Center.X;
+                var dy = _circles[a].Center.Y;
+                var dRadius = _circles[a].Radius;
+                if (dy - 0 <= dRadius || Math.Abs(dy - Panel.ClientSize.Height) <= dRadius || dx - 0 <= dRadius || Math.Abs(dx - Panel.ClientSize.Width) <= dRadius)
                 {
                     _circles.RemoveAt(a);
                     g.Clear(Color.White);
@@ -115,12 +91,15 @@ namespace Task1
                     }
                 }
             }
-            for(int m=0; m < _circles.Count; m++)
+            for (int m = 0; m < _circles.Count; m++)
             {
-                g.FillEllipse(_circles[m].Brush, _circles[m].Center.X - _circles[m].Radius, _circles[m].Center.Y - _circles[m].Radius, _circles[m].Radius * 2, _circles[m].Radius * 2);
+                var dx = _circles[m].Center.X;
+                var dy = _circles[m].Center.Y;
+                var dRadius = _circles[m].Radius;
+                g.FillEllipse(_circles[m].Brush, dx - dRadius, dy - dRadius, dRadius * 2, dRadius * 2);
             }
-       
+
         }
     }
-    
+
 }

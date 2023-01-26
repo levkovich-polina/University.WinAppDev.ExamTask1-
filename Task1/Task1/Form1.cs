@@ -19,9 +19,8 @@ namespace Task1
         }
 
         private Timer _timer;
-        List<Circle> circles = new List<Circle>();
-        List<Circle> circlesDelete = new List<Circle>();
-        int _radius = 0;
+        List<Circle> _circles = new List<Circle>();
+        List<Circle> _circlesDelete = new List<Circle>();
 
 
         public Form1()
@@ -38,16 +37,16 @@ namespace Task1
                 Random random = new Random();
                 SolidBrush brush = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
                 Circle circle = new Circle(e.Location, 0, brush);
-                circles.Add(circle);
-                if (circles.Count == 1)
+                _circles.Add(circle);
+                if (_circles.Count == 1)
                 {
-                    TimerCallback tm = new TimerCallback(PanelDisplay);
+                    TimerCallback tm = new TimerCallback(OnTimerTicked);
                     _timer = new Timer(tm, 0, 0, 5);
                 }
 
             }
         }
-        public void PanelDisplay(object obj)
+        public void OnTimerTicked(object obj)
         {
 
         }

@@ -4,7 +4,7 @@ namespace Task1
 {
     public partial class Form1 : Form
     {
-      
+        private Timer _timer;
         Point cursor;
         List<Circle> list = new List<Circle>();
         public class Circle
@@ -25,6 +25,8 @@ namespace Task1
             SpeedTextBox.Text = "100";
         }
 
+
+        int num = 0;
         int radius = 0;
         private void Panel_MouseMove(object sender, MouseEventArgs e)
         {
@@ -32,6 +34,11 @@ namespace Task1
             {
                 Circle circle = new Circle(cursor, radius);
                 list.Add(circle);
+                if (list.Count == 1)
+                {
+                    TimerCallback tm = new TimerCallback(Draw);
+                    _timer = new Timer(tm, num, 0, 20);
+                }
             }
         }
 

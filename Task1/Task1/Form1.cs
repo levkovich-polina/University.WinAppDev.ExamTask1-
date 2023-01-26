@@ -9,6 +9,9 @@ namespace Task1
         List<Circle> circles = new List<Circle>();
         List<Circle> circlesDelete = new List<Circle>();
         SolidBrush color;
+        int num = 0;
+        int radius = 0;
+
         public class Circle
         {
             public Point Center { get; set; }
@@ -27,23 +30,6 @@ namespace Task1
             SpeedTextBox.Text = "100";
         }
 
-
-        int num = 0;
-        int radius = 0;
-        private void Panel_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (Panel.Capture == true)
-            {
-                Circle circle = new Circle(cursor, radius);
-                circles.Add(circle);
-                if (circles.Count == 1)
-                {
-                    TimerCallback tm = new TimerCallback(Draw);
-                    _timer = new Timer(tm, num, 0, 5);
-                }
-            }
-        }
-
         private void Panel_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -57,13 +43,20 @@ namespace Task1
             int count = 0;
             if (e.Button == MouseButtons.Left)
             {
-                Panel.Capture = true;
                 cursor = new Point(e.X, e.Y);
+                Circle circle = new Circle(cursor, radius);
+                circles.Add(circle);
+                if (circles.Count == 1)
+                {
+                    TimerCallback tm = new TimerCallback(Draw);
+                    _timer = new Timer(tm, num, 0, 5);
+                }
                 //count += 1;
                 //QuantityLabel.Text = count.ToString();
                 Random random = new Random();
                 SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
                 color = pen;
+               
             }
         }
 
@@ -86,6 +79,7 @@ namespace Task1
                 for (int x = 0; x < circles.Count; x++)
                 {
                     circlesDelete.RemoveAt(x);
+                    Panel.Invalidate();
                     if (circles.Count == 0)
                     {
                         _timer.Dispose();
@@ -104,6 +98,24 @@ namespace Task1
                     }
                 }
                 if (Math.Abs(circles[a].Center.Y - Panel.ClientSize.Height) <= circles[a].Radius)
+                {
+                    circles.RemoveAt(a);
+                    Panel.Invalidate();
+                    if (circles.Count == 0)
+                    {
+                        _timer.Dispose();
+                    }
+                }
+                if (Math.Abs(circles[a].Center.X - 0) <= circles[a].Radius)
+                {
+                    circles.RemoveAt(a);
+                    Panel.Invalidate();
+                    if (circles.Count == 0)
+                    {
+                        _timer.Dispose();
+                    }
+                }
+                if (Math.Abs(circles[a].Center.X - Panel.ClientSize.Width) <= circles[a].Radius)
                 {
                     circles.RemoveAt(a);
                     Panel.Invalidate();

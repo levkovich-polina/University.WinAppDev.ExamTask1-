@@ -1,7 +1,3 @@
-using static Task1.Form1;
-using System.Drawing;
-using System.Windows.Forms;
-using System;
 using Timer = System.Threading.Timer;
 
 namespace Task1
@@ -20,12 +16,10 @@ namespace Task1
         }
 
         private Timer _timer;
-        Point cursor;
-        List<Circle> circles = new List<Circle>();
-        List<Circle> circlesDelete = new List<Circle>();
-        int num = 0;
-        int radius = 0;
-        SolidBrush color;
+        List<Circle> _circles = new List<Circle>();
+        List<Circle> _circlesDelete = new List<Circle>();
+        int _radius = 0;
+        SolidBrush _color;
 
         public Form1()
         {
@@ -36,24 +30,19 @@ namespace Task1
 
         private void Panel_MouseDown(object sender, MouseEventArgs e)
         {
-    
             if (e.Button == MouseButtons.Left)
             {
-                if (e.Button == MouseButtons.Left)
+                Point cursor = new Point(e.X, e.Y);
+                Circle circle = new Circle(cursor, _radius);
+                _circles.Add(circle);
+                if (_circles.Count == 1)
                 {
-                    cursor = new Point(e.X, e.Y);
-                    Circle circle = new Circle(cursor, radius);
-                    circles.Add(circle);
-                    if (circles.Count == 1)
-                    {
-                        TimerCallback tm = new TimerCallback(Draw);
-                        _timer = new Timer(tm, num, 0, 5);
-                    }             
-                    Random random = new Random();
-                    SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-                    color = pen;
-
+                    TimerCallback tm = new TimerCallback(Draw);
+                    _timer = new Timer(tm, 0, 0, 5);
                 }
+                Random random = new Random();
+                SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
+                _color = pen;
 
             }
         }

@@ -49,7 +49,6 @@
             this.Panel.Size = new System.Drawing.Size(800, 289);
             this.Panel.TabIndex = 0;
             this.Panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
-            this.Panel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseUp);
             // 
             // groupBox1
             // 

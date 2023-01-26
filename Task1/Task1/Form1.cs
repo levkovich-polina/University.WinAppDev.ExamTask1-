@@ -10,11 +10,11 @@ namespace Task1
             public Point Center { get; set; }
             public int Radius { get; set; }
             public SolidBrush Brush { get; set; }
-            public Circle(Point point, int radius, SolidBrush color)
+            public Circle(Point point, int radius, SolidBrush brush)
             {
                 Center = point;
                 Radius = radius;
-                Brush = color;
+                Brush = brush;
             }
         }
 

@@ -8,10 +8,12 @@ namespace Task1
         {
             public Point Center { get; set; }
             public int Radius { get; set; }
-            public Circle(Point point, int radius)
+            public SolidBrush Color { get; set; }
+            public Circle(Point point, int radius, SolidBrush color)
             {
                 Center = point;
                 Radius = radius;
+                Color = color;
             }
         }
 
@@ -19,7 +21,7 @@ namespace Task1
         List<Circle> _circles = new List<Circle>();
         List<Circle> _circlesDelete = new List<Circle>();
         int _radius = 0;
-        SolidBrush _color;
+
 
         public Form1()
         {
@@ -32,17 +34,15 @@ namespace Task1
         {
             if (e.Button == MouseButtons.Left)
             {
-                Point cursor = new Point(e.X, e.Y);
-                Circle circle = new Circle(cursor, _radius);
+                Random random = new Random();
+                SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
+                Circle circle = new Circle(e.Location, 0, pen);
                 _circles.Add(circle);
                 if (_circles.Count == 1)
                 {
                     TimerCallback tm = new TimerCallback(Draw);
                     _timer = new Timer(tm, 0, 0, 5);
                 }
-                Random random = new Random();
-                SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-                _color = pen;
 
             }
         }

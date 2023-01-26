@@ -1,4 +1,3 @@
-using static Task1.Form1;
 using Timer = System.Threading.Timer;
 
 namespace Task1
@@ -8,6 +7,8 @@ namespace Task1
         private Timer _timer;
         private int _diametr = 0;
         SolidBrush color;
+        Point cursor;
+
         public class Circle
         {
             public Point Center { get; set; }
@@ -26,12 +27,13 @@ namespace Task1
             SpeedTextBox.Text = "100";
         }
 
+        int radius = 0;
         private void Panel_MouseMove(object sender, MouseEventArgs e)
         {
-            int radius = 0;
-            if (Panel.Capture)
+
+            if (Panel.Capture == true)
             {
-                Circle circle = new Circle(new Point(e.X, e.Y), radius);             
+                Circle circle = new Circle(new Point(e.X, e.Y), radius);
                 int num = 0;
 
                 double speed = Convert.ToDouble(SpeedTextBox.Text);
@@ -60,22 +62,22 @@ namespace Task1
                 Panel.Capture = true;
                 count += 1;
                 QuantityLabel.Text = count.ToString();
-                Random random = new Random();       
+                Random random = new Random();
                 SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
                 color = pen;
-                PointToScreen(e.Location);
+                cursor = new Point(e.X, e.Y);
             }
         }
+
+        int width = 1;
+        int height = 1;
         public void Draw(object obj)
         {
             Graphics g = Panel.CreateGraphics();
-            g.FillEllipse(color, Size.Width, Size.Height);
-            _diametr++;
-            if (Panel.Capture == false)
-            {
-                _timer.Dispose();
-                _diametr = 0;
-            }
+            g.FillEllipse(color, cursor.X * width / 2, cursor.Y * height / 2, width, height);
+            width++;
+            height++;
+            radius++;
         }
     }
 }

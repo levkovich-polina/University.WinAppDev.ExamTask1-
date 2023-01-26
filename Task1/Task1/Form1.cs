@@ -20,7 +20,7 @@ namespace Task1
 
         private Timer _timer;
         List<Circle> _circles = new List<Circle>();
-        List<Circle> _circlesDelete = new List<Circle>();
+      
 
 
         public Form1()
@@ -48,7 +48,6 @@ namespace Task1
         }
         public void OnTimerTicked(object obj)
         {
-
         }
     }
 }

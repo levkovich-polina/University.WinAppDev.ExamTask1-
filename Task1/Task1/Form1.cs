@@ -4,11 +4,9 @@ namespace Task1
 {
     public partial class Form1 : Form
     {
-        private Timer _timer;
-        private int _diametr = 0;
-        SolidBrush color;
+      
         Point cursor;
-
+        List<Circle> list = new List<Circle>();
         public class Circle
         {
             public Point Center { get; set; }
@@ -33,6 +31,7 @@ namespace Task1
             if (Panel.Capture == true)
             {
                 Circle circle = new Circle(cursor, radius);
+                list.Add(circle);
             }
         }
 

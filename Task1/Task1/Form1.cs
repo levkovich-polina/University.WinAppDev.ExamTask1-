@@ -30,19 +30,9 @@ namespace Task1
         int radius = 0;
         private void Panel_MouseMove(object sender, MouseEventArgs e)
         {
-
             if (Panel.Capture == true)
             {
-                Circle circle = new Circle(new Point(e.X, e.Y), radius);
-                int num = 0;
-
-                double speed = Convert.ToDouble(SpeedTextBox.Text);
-
-                double difference = speed / 100.0;
-                int reproduction = (int)(20 / difference);
-
-                TimerCallback tm = new TimerCallback(Draw);
-                _timer = new Timer(tm, num, 0, reproduction);
+                Circle circle = new Circle(cursor, radius);
             }
         }
 
@@ -56,28 +46,16 @@ namespace Task1
 
         private void Panel_MouseDown(object sender, MouseEventArgs e)
         {
-            int count = 0;
             if (e.Button == MouseButtons.Left)
             {
                 Panel.Capture = true;
-                count += 1;
-                QuantityLabel.Text = count.ToString();
-                Random random = new Random();
-                SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-                color = pen;
                 cursor = new Point(e.X, e.Y);
             }
         }
 
-        int width = 1;
-        int height = 1;
         public void Draw(object obj)
         {
-            Graphics g = Panel.CreateGraphics();
-            g.FillEllipse(color, cursor.X * width / 2, cursor.Y * height / 2, width, height);
-            width++;
-            height++;
-            radius++;
+         
         }
     }
 }

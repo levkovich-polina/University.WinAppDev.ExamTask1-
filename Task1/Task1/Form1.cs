@@ -1,3 +1,4 @@
+using System.Drawing;
 using Timer = System.Threading.Timer;
 
 namespace Task1
@@ -8,18 +9,18 @@ namespace Task1
         {
             public Point Center { get; set; }
             public int Radius { get; set; }
-            public SolidBrush Color { get; set; }
+            public SolidBrush Brush { get; set; }
             public Circle(Point point, int radius, SolidBrush color)
             {
                 Center = point;
                 Radius = radius;
-                Color = color;
+                Brush = color;
             }
         }
 
         private Timer _timer;
-        List<Circle> _circles = new List<Circle>();
-        List<Circle> _circlesDelete = new List<Circle>();
+        List<Circle> circles = new List<Circle>();
+        List<Circle> circlesDelete = new List<Circle>();
         int _radius = 0;
 
 
@@ -35,18 +36,18 @@ namespace Task1
             if (e.Button == MouseButtons.Left)
             {
                 Random random = new Random();
-                SolidBrush pen = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-                Circle circle = new Circle(e.Location, 0, pen);
-                _circles.Add(circle);
-                if (_circles.Count == 1)
+                SolidBrush brush = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
+                Circle circle = new Circle(e.Location, 0, brush);
+                circles.Add(circle);
+                if (circles.Count == 1)
                 {
-                    TimerCallback tm = new TimerCallback(Draw);
+                    TimerCallback tm = new TimerCallback(PanelDisplay);
                     _timer = new Timer(tm, 0, 0, 5);
                 }
 
             }
         }
-        public void Draw(object obj)
+        public void PanelDisplay(object obj)
         {
 
         }

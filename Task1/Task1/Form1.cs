@@ -48,6 +48,7 @@ namespace Task1
         public void OnTimerTicked(object obj)
         {
             List<Circle> circlesDelete = new List<Circle>();
+            Graphics g = Panel.CreateGraphics();
             for (int k=0; k<_circles.Count; k++)
             {
                 _circles[k].Radius++;
@@ -68,7 +69,7 @@ namespace Task1
                 for (int x = 0; x < circlesDelete.Count; x++)
                 {
                     circlesDelete.RemoveAt(x);
-                    Panel.Invalidate();
+                    g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
                         _timer.Dispose();
@@ -80,7 +81,7 @@ namespace Task1
                 if (Math.Abs(_circles[a].Center.Y - 0) <= _circles[a].Radius)
                 {
                     _circles.RemoveAt(a);
-                    Panel.Invalidate();
+                    g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
                         _timer.Dispose();
@@ -89,7 +90,7 @@ namespace Task1
                 if (Math.Abs(_circles[a].Center.Y - Panel.ClientSize.Height) <= _circles[a].Radius)
                 {
                     _circles.RemoveAt(a);
-                    Panel.Invalidate();
+                    g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
                         _timer.Dispose();
@@ -98,7 +99,7 @@ namespace Task1
                 if (Math.Abs(_circles[a].Center.X - 0) <= _circles[a].Radius)
                 {
                     _circles.RemoveAt(a);
-                    Panel.Invalidate();
+                    g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
                         _timer.Dispose();
@@ -107,7 +108,7 @@ namespace Task1
                 if (Math.Abs(_circles[a].Center.X - Panel.ClientSize.Width) <= _circles[a].Radius)
                 {
                     _circles.RemoveAt(a);
-                    Panel.Invalidate();
+                    g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
                         _timer.Dispose();
@@ -116,7 +117,6 @@ namespace Task1
             }
             for(int m=0; m < _circles.Count; m++)
             {
-                Graphics g = Panel.CreateGraphics();
                 g.FillEllipse(_circles[m].Brush, _circles[m].Center.X - _circles[m].Radius, _circles[m].Center.Y - _circles[m].Radius, _circles[m].Radius * 2, _circles[m].Radius * 2);
             }
        

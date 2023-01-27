@@ -59,16 +59,35 @@ namespace Task1
                         var dx = _circles[n].Center.X - _circles[i].Center.X;
                         var dy = _circles[n].Center.Y - _circles[i].Center.Y;
                         var dRadius = _circles[n].Radius + _circles[i].Radius;
-                        if (dx * dx + dy * dy <= dRadius * dRadius)
+                        if (i != n)
                         {
-                            circlesDelete.Add(_circles[i]);
-                            circlesDelete.Add(_circles[n]);
+                            if (dx * dx + dy * dy <= dRadius * dRadius)
+                            {
+                                circlesDelete.Add(_circles[i]);
+                                circlesDelete.Add(_circles[n]);
+                            }
                         }
+
                     }
                 }
                 for (int x = 0; x < circlesDelete.Count; x++)
                 {
                     _circles.Remove(circlesDelete[x]);
+                    g.Clear(Color.White);
+                    if (_circles.Count == 0)
+                    {
+                        _timer.Dispose();
+                    }
+                }
+            }
+            for (int a = 0; a < _circles.Count; a++)
+            {
+                var dx = _circles[a].Center.X;
+                var dy = _circles[a].Center.Y;
+                var dRadius = _circles[a].Radius;
+                if (dy - 0 <= dRadius || Math.Abs(dy - Panel.ClientSize.Height) <= dRadius || dx - 0 <= dRadius || Math.Abs(dx - Panel.ClientSize.Width) <= dRadius)
+                {
+                    _circles.RemoveAt(a);
                     g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
@@ -83,7 +102,7 @@ namespace Task1
                 var dy = _circles[m].Center.Y;
                 var dRadius = _circles[m].Radius;
                 var brush = _circles[m].Brush;
-                Invoke(() => { g.FillEllipse(brush, dx - dRadius, dy - dRadius, dRadius * 2, dRadius * 2);});
+                Invoke(() => { g.FillEllipse(brush, dx - dRadius, dy - dRadius, dRadius * 2, dRadius * 2); });
             }
 
         }

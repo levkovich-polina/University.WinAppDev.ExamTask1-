@@ -38,10 +38,13 @@ namespace Task1
                 SolidBrush brush = new SolidBrush(Color.FromArgb(_random.Next(255), _random.Next(255), _random.Next(255)));
                 Circle circle = new Circle(e.Location, 0, brush);
                 _circles.Add(circle);
+                double speed = Convert.ToDouble(SpeedTextBox.Text);
+                double difference = speed / 100.0;
+                int reproduction = (int)(20 / difference);
                 if (_circles.Count == 1)
                 {
                     TimerCallback tm = new TimerCallback(OnTimerTicked);
-                    _timer = new Timer(tm, 0, 0, 5);
+                    _timer = new Timer(tm, 0, 0, reproduction);
                 }
 
             }

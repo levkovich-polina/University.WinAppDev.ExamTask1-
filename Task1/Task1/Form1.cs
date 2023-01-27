@@ -19,6 +19,9 @@ namespace Task1
 
         private Timer _timer;
         List<Circle> _circles = new List<Circle>();
+        Random _random = new Random();
+        int _count = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,8 +33,9 @@ namespace Task1
         {
             if (e.Button == MouseButtons.Left)
             {
-                Random random = new Random();
-                SolidBrush brush = new SolidBrush(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
+                _count++;
+                QuantityLabel.Text = _count.ToString();
+                SolidBrush brush = new SolidBrush(Color.FromArgb(_random.Next(255), _random.Next(255), _random.Next(255)));
                 Circle circle = new Circle(e.Location, 0, brush);
                 _circles.Add(circle);
                 if (_circles.Count == 1)
@@ -56,11 +60,11 @@ namespace Task1
                 {
                     for (int n = 1; n < _circles.Count; n++)
                     {
-                        var dx = _circles[n].Center.X - _circles[i].Center.X;
-                        var dy = _circles[n].Center.Y - _circles[i].Center.Y;
-                        var dRadius = _circles[n].Radius + _circles[i].Radius;
                         if (i != n)
                         {
+                            var dx = _circles[n].Center.X - _circles[i].Center.X;
+                            var dy = _circles[n].Center.Y - _circles[i].Center.Y;
+                            var dRadius = _circles[n].Radius + _circles[i].Radius;
                             if (dx * dx + dy * dy <= dRadius * dRadius)
                             {
                                 circlesDelete.Add(_circles[i]);

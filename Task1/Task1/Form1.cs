@@ -50,13 +50,40 @@ namespace Task1
             {
                 _circles[k].Radius++;
             }
-            
+            if (_circles.Count >= 2)
+            {
+                for (int i = 0; i < _circles.Count; i++)
+                {
+                    for (int n = 1; n < _circles.Count; n++)
+                    {
+                        var dx = _circles[n].Center.X - _circles[i].Center.X;
+                        var dy = _circles[n].Center.Y - _circles[i].Center.Y;
+                        var dRadius = _circles[n].Radius + _circles[i].Radius;
+                        if (dx * dx + dy * dy <= dRadius * dRadius)
+                        {
+                            circlesDelete.Add(_circles[i]);
+                            circlesDelete.Add(_circles[n]);
+                        }
+                    }
+                }
+                for (int x = 0; x < circlesDelete.Count; x++)
+                {
+                    _circles.Remove(circlesDelete[x]);
+                    g.Clear(Color.White);
+                    if (_circles.Count == 0)
+                    {
+                        _timer.Dispose();
+                    }
+                }
+            }
+
             for (int m = 0; m < _circles.Count; m++)
             {
                 var dx = _circles[m].Center.X;
                 var dy = _circles[m].Center.Y;
                 var dRadius = _circles[m].Radius;
-                g.FillEllipse(_circles[m].Brush, dx - dRadius, dy - dRadius, dRadius * 2, dRadius * 2);
+                var brush = _circles[m].Brush;
+                Invoke(() => { g.FillEllipse(brush, dx - dRadius, dy - dRadius, dRadius * 2, dRadius * 2);});
             }
 
         }

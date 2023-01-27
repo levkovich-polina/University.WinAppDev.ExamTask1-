@@ -53,9 +53,9 @@ namespace Task1
         {
             List<Circle> circlesDelete = new List<Circle>();
             Graphics g = Panel.CreateGraphics();
-            for (int k = 0; k < _circles.Count; k++)
+            for (int i = 0; i < _circles.Count; i++)
             {
-                _circles[k].Radius++;
+                _circles[i].Radius++;
             }
             if (_circles.Count >= 2)
             {
@@ -77,38 +77,33 @@ namespace Task1
 
                     }
                 }
-                for (int x = 0; x < circlesDelete.Count; x++)
+                for (int i = 0; i < circlesDelete.Count; i++)
                 {
-                    _circles.Remove(circlesDelete[x]);
+                    _circles.Remove(circlesDelete[i]);
                     g.Clear(Color.White);
-                    if (_circles.Count == 0)
-                    {
-                        _timer.Dispose();
-                    }
                 }
             }
-            for (int a = 0; a < _circles.Count; a++)
+            for (int i = 0; i < _circles.Count; i++)
             {
-                var dx = _circles[a].Center.X;
-                var dy = _circles[a].Center.Y;
-                var dRadius = _circles[a].Radius;
+                var dx = _circles[i].Center.X;
+                var dy = _circles[i].Center.Y;
+                var dRadius = _circles[i].Radius;
                 if (dy - 0 <= dRadius || Math.Abs(dy - Panel.ClientSize.Height) <= dRadius || dx - 0 <= dRadius || Math.Abs(dx - Panel.ClientSize.Width) <= dRadius)
                 {
-                    _circles.RemoveAt(a);
-                    g.Clear(Color.White);
-                    if (_circles.Count == 0)
-                    {
-                        _timer.Dispose();
-                    }
+                    _circles.RemoveAt(i);
+                    g.Clear(Color.White);                
                 }
             }
-
-            for (int m = 0; m < _circles.Count; m++)
+            if (_circles.Count == 0)
             {
-                var dx = _circles[m].Center.X;
-                var dy = _circles[m].Center.Y;
-                var dRadius = _circles[m].Radius;
-                var brush = _circles[m].Brush;
+                _timer.Dispose();
+            }
+            for (int i = 0; i < _circles.Count; i++)
+            {
+                var dx = _circles[i].Center.X;
+                var dy = _circles[i].Center.Y;
+                var dRadius = _circles[i].Radius;
+                var brush = _circles[i].Brush;
                 Invoke(() => { g.FillEllipse(brush, dx - dRadius, dy - dRadius, dRadius * 2, dRadius * 2); });
             }
 

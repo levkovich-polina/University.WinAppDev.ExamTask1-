@@ -68,7 +68,7 @@ namespace Task1
                 }
                 for (int x = 0; x < circlesDelete.Count; x++)
                 {
-                  
+                    _circles.Remove(circlesDelete[x]);
                     g.Clear(Color.White);
                     if (_circles.Count == 0)
                     {
